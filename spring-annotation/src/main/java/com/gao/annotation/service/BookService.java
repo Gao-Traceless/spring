@@ -13,17 +13,17 @@ import javax.inject.Inject;
 public class BookService {
 
 //    @Qualifier("bookDAO")
-//    @Autowired(required = false)
-    @Inject
-    private BookDAO bookDAO2;
+    @Autowired(required = false)
+//    @Inject
+    private BookDAO bookDAO;
 
     public void print(){
-        System.out.println(bookDAO2);
+        System.out.println(bookDAO);
     }
 
     @Override
     public String toString(){
-        return "BookService [bookDao=" + bookDAO2 + "]";
+        return "BookService [bookDao=" + bookDAO + "]";
     }
 
 }

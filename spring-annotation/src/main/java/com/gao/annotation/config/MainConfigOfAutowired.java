@@ -31,19 +31,28 @@ import org.springframework.context.annotation.Configuration;
  *   区别：
  *      @Autowired: spring定义的；@Rsource、@Inject都是java规范
  *  AutowiredAnnotationBeanPostProcessor: 解析完成自动装配功能
- * 3、@Autowired:构造器，参数，方法，属性
+ * 3、@Autowired:构造器，参数，方法，属性；都是从容器中获取参数组件的值
+ *      3.1、[标注在方法位置]: @Bean+方法参数；参数从容器中获取；默认不写@Autowired效果是一样的；都能自动装配
+ *      3.2、[标注在构造器上]: 如果组件只有一个有参构造器，这个有参构造器的@Autowired可以省略，参数位置的组件还是可以自动从容器中获取
+ *      3.3、[放在参数位置]:
+ * 4、自定义组件想要使用spring容器底层的一些组件(ApplicationContext,BeanFactory,xxx);
+ *    自定义组件实现xxxAware: 在创建对象的时候，会调用接口规定的方法注入相关组件；Aware
+ *    把Spring底层一些组件注入到自定义的Bean中；
+ *    xxxAware: 功能使用xxxProcessor
+ *      ApplicationContextAware==》ApplicationContextAwareProcessor
+ *
  */
 @Configuration
-@ComponentScan({"com.gao.annotation.dao", "com.gao.annotation.service", "com.gao.annotation.controller"})
+@ComponentScan({"com.gao.annotation.dao", "com.gao.annotation.service", "com.gao.annotation.controller","com.gao.annotation.bean"})
 public class MainConfigOfAutowired {
 
-    @Bean("bookDAO2")
-//    @Bean
-    public BookDAO bookDAO(){
-        BookDAO bookDAO = new BookDAO();
-        bookDAO.setLable("2");
-        return new BookDAO();
-    }
+//    @Bean("bookDAO2")
+//    @Bean //@Bean标注的方法创建对象的时候，方法参数的值从容器中获取
+//    public BookDAO bookDAO(){
+////        BookDAO bookDAO = new BookDAO();
+////        bookDAO.setLable("2");
+//        return new BookDAO();
+//    }
 
 
 }
